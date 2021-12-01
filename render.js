@@ -12,7 +12,7 @@ function render(html, scripts) {
         dom.window.eval(script);
     });
     rendered_html = dom.serialize();
-    return endered_html
+    return rendered_html
 }
 
 module.exports = {

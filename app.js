@@ -11,7 +11,7 @@ app.use(ctx => {
     html = ctx.request.body.html
     scripts = ctx.request.body.scripts
     body = render(html, scripts)
-    ctx.body = 'Hello Koa'; 
+    ctx.body = body; 
   } else {
     ctx.throw(404)
   }
