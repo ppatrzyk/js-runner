@@ -3,8 +3,7 @@ const app = new Koa();
 
 // response
 app.use(ctx => {
-  if (ctx.path == '/render') {
-    console.log(ctx.method);
+  if (ctx.path == '/render' & ctx.method == 'POST') {
     console.log(ctx.request);
     ctx.body = 'Hello Koa'; 
   } else {
