@@ -2,17 +2,16 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const options = {
-    resources: "usable",
-    runScripts: "dangerously",
+    pretendToBeVisual: true,
+    runScripts: "outside-only",
 };
 
-function render(url) {
+function render(html, scripts) {
     (async () => {
-        console.log(url);
-        dom = await JSDOM.fromURL(url, options)
-        html = dom.serialize();
-        console.log(html)
+        dom = new JSDOM(html, options)
+        rendered_html = dom.serialize();
+        console.log(rendered_html)
     })();
 }
 
-render("https://ppatrzyk.github.io/foreign-tourists");
+render(`<!DOCTYPE html><p>Hello world</p>`, []);
