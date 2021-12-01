@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ppatrzyk/js-runner#readme",
   "private": true,
   "dependencies": {
-    "jsdom": "^16.5.1",
-    "koa": "^2.13.1"
+    "jsdom": "^18.1.1",
+    "koa": "^2.13.4"
   }
 }
