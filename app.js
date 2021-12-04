@@ -9,8 +9,8 @@ app.use(koa_body());
 app.use(ctx => {
   if (ctx.path == '/render' & ctx.method == 'POST') {
     html = ctx.request.body.html
-    scripts = ctx.request.body.scripts
-    body = render(html, scripts)
+    url = ctx.request.body.url
+    body = render(html, url)
     ctx.body = body; 
   } else {
     ctx.throw(404)
