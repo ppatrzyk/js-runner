@@ -4,13 +4,14 @@ const { JSDOM } = jsdom;
 
 const options = {
     pretendToBeVisual: true,
-    runScripts: "outside-only",
+    resources: "usable",
+    runScripts: "dangerously",
 };
 
 const fetch_js = fs.readFileSync(require.resolve('whatwg-fetch/fetch.js'), 'utf-8')
 
 function render(html, url) {
-    dom = new JSDOM(html, options)
+    dom = new JSDOM(html, {...options, ...{"url": url}})
     rendered_html = dom.serialize();
     return rendered_html
 }
