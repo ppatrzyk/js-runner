@@ -8,7 +8,7 @@ const options = {
     runScripts: "dangerously",
 };
 
-const fetch_js = `<script type="module">${fs.readFileSync(require.resolve('whatwg-fetch/fetch.js'), 'utf-8')}</script>`
+const fetch_js = `<script type="module">${fs.readFileSync('./fetch/fetch.umd.js', 'utf-8')}</script>`
 
 function render(html, url) {
     html_fix = html.replace('<head>', `<head>\n${fetch_js}`)
