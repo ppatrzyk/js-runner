@@ -1,16 +1,15 @@
 const koa = require('koa');
-const koa_body = require('koa-body');
+const parse = require('co-body');
 const { render } = require('./render.js');
 
 const app = new koa();
-app.use(koa_body());
 
 // response
 app.use(async ctx => {
   if (ctx.path == '/render' & ctx.method == 'POST') {
-    html = ctx.request.body.html
-    url = ctx.request.body.url
-    body = await render(html, url)
+    var opts = {limit: '10mb', strict: false};
+    var req_body = await parse.json(ctx.request, opts);
+    body = await render(req_body.html, req_body.url)
     ctx.body = body; 
   } else {
     ctx.throw(404)
