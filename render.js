@@ -30,8 +30,12 @@ async function render(params) {
         }
     }
     dom = new JSDOM(params.html, options)
-    await timer(params.render_wait)
+    // calculate how much time remains for waiting for JS scripts
+    var time_passed = Date.now() - params.start_time;
+    var wait = params.render_wait - time_passed;
+    await timer(wait)
     rendered_html = dom.serialize();
+    dom.window.close()
     return rendered_html
 }
 
