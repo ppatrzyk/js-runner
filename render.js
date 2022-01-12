@@ -9,7 +9,7 @@ const const_options = {
 };
 
 // https://github.com/developit/unfetch
-const unfetch = `<script>${fs.readFileSync('./unfetch-4.2.0.js', 'utf-8')}</script>`
+const unfetch = fs.readFileSync('./unfetch-4.2.0.js', 'utf-8')
 
 // https://stackoverflow.com/a/46937705
 const timer = ms => new Promise( res => setTimeout(res, ms));
@@ -18,16 +18,18 @@ async function render(params) {
     const resource_loader = new jsdom.ResourceLoader({strictSSL: false, userAgent: params.user_agent});
     const jsdom_console = new jsdom.VirtualConsole();
     jsdom_console.sendTo(console);
-    html_fix = params.html.replace('<head>', `<head>\n${unfetch}`)
     options = {
         ...const_options,
         ...{
             url: params.url,
             resources: resource_loader,
-            virtualConsole: jsdom_console
+            virtualConsole: jsdom_console,
+            beforeParse(window) {
+                window.eval(unfetch)
+            }
         }
     }
-    dom = new JSDOM(html_fix, options)
+    dom = new JSDOM(params.html, options)
     await timer(params.render_wait)
     rendered_html = dom.serialize();
     return rendered_html
