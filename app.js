@@ -8,7 +8,7 @@ const app = new koa();
 // response
 app.use(async ctx => {
   if (ctx.path == '/render' & ctx.method == 'POST') {
-    var opts = {limit: '10mb', strict: false};
+    var opts = {limit: '100Mb', strict: false};
     var req_body = await parse.json(ctx.request, opts);
     // todo maybe cookies in the future
     // https://github.com/jsdom/jsdom#cookie-jars
