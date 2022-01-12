@@ -1,3 +1,4 @@
+const assert = require('assert');
 const koa = require('koa');
 const parse = require('co-body');
 const { render } = require('./render.js');
@@ -9,6 +10,11 @@ app.use(async ctx => {
   if (ctx.path == '/render' & ctx.method == 'POST') {
     var opts = {limit: '10mb', strict: false};
     var req_body = await parse.json(ctx.request, opts);
+    // todo maybe cookies in the future
+    // https://github.com/jsdom/jsdom#cookie-jars
+    ["html", "url", "user_agent", "render_wait"].forEach(key => {
+      assert(req_body.hasOwnProperty(key));
+    });
     body = await render(req_body)
     ctx.body = body; 
   } else {
