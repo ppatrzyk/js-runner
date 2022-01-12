@@ -17,7 +17,9 @@ const timer = ms => new Promise( res => setTimeout(res, ms));
 async function render(params) {
     const resource_loader = new jsdom.ResourceLoader({strictSSL: false, userAgent: params.user_agent});
     const jsdom_console = new jsdom.VirtualConsole();
-    jsdom_console.sendTo(console);
+    if (process.env.NODE_ENV != 'production') {
+        jsdom_console.sendTo(console);   
+    }
     options = {
         ...const_options,
         ...{
